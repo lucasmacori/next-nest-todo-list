@@ -1,0 +1,36 @@
+services:
+  api:
+    image: "node:18"
+    working_dir: "/todo-list-api"
+    volumes:
+      - "./api/:/todo-list-api"
+    ports:
+      - 3001:3000
+    command: >
+      bash -c "npm i && npm run start:dev"
+
+  webapp:
+    image: "node:18"
+    working_dir: "/todo-list-webapp"
+    volumes:
+      - "./:/todo-list-webapp"
+    ports:
+      - 3000:3000
+    command: >
+      bash -c "npm i && npm run dev"
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: todo
+    volumes:
+      - "./dist/mysql_data:/var/lib/mysql"
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1

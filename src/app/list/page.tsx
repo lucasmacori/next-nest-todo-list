@@ -1,7 +1,7 @@
 import List from "@/components/List";
 
 const fetchTaskList = async () => {
-  const data = await fetch("http://127.0.0.1:3001/tasks", {
+  const data = await fetch("http://api:3000/tasks", {
     cache: "no-cache",
   });
   return await data.json();
