@@ -1,38 +1,39 @@
 "use client";
 
 import { Task } from "@/types/task.type";
-import { IconButton, List, ListItem, ListItemText } from "@mui/material";
+import { StyledContent, StyledFab, StyledList, StyledTitle } from "./style";
+import TaskListElement from "./Element/TaskListElement.component";
+import { Add } from "@mui/icons-material";
 import { uniqueId } from "lodash";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import { StyledContent, StyledList } from "./style";
 
 type TaskListComponentProps = {
   tasks: Task[];
+  onAddTaskButtonClick: () => void;
 };
 
-const TaskListComponent: React.FC<TaskListComponentProps> = ({ tasks }) => (
+const TaskListComponent: React.FC<TaskListComponentProps> = ({
+  tasks,
+  onAddTaskButtonClick,
+}) => (
   <StyledContent>
-    <h1>Tasks</h1>
+    <StyledTitle>
+      <h1>Tasks</h1>
+    </StyledTitle>
+
     <StyledList>
       {tasks.map((task) => (
-        <ListItem
-          secondaryAction={
-            <>
-              <IconButton edge="end" aria-label="edit">
-                <EditIcon />
-              </IconButton>
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            </>
-          }
-          disablePadding
-        >
-          <ListItemText>{task.title}</ListItemText>
-        </ListItem>
+        <TaskListElement key={uniqueId()} task={task} />
       ))}
     </StyledList>
+
+    <StyledFab
+      variant="extended"
+      color="primary"
+      onClick={onAddTaskButtonClick}
+    >
+      <Add />
+      <span>Add a new task</span>
+    </StyledFab>
   </StyledContent>
 );
 

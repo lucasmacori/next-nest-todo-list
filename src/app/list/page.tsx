@@ -1,4 +1,5 @@
 import List from "@/components/TaskList/TaskList.container";
+import TaskListProvider from "@/context/TaskListContext/TaskList.provider";
 
 const fetchTaskList = async () => {
   const data = await fetch("http://api:3000/tasks", {
@@ -9,7 +10,11 @@ const fetchTaskList = async () => {
 
 const ListPage: React.FC = async () => {
   const tasks = await fetchTaskList();
-  return <List tasks={tasks} />;
+  return (
+    <TaskListProvider>
+      <List tasks={tasks} />
+    </TaskListProvider>
+  );
 };
 
 export default ListPage;
