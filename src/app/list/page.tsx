@@ -1,4 +1,4 @@
-import List from "@/components/List";
+import List from "@/components/TaskList/TaskList.container";
 
 const fetchTaskList = async () => {
   const data = await fetch("http://api:3000/tasks", {
