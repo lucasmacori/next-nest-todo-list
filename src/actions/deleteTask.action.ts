@@ -1,9 +1,9 @@
 "use server";
 
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 
 const deleteTask = async (task: Task) => {
-  fetch(`http://api:3000/tasks/${task.id}`, {
+  fetch(`http://todo-list-api:3000/tasks/${task.id}`, {
     method: "DELETE",
   });
 };

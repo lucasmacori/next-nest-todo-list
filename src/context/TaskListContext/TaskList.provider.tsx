@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import TaskListContext from "./TaskList.context";
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 
 type TaskListProviderProps = {
   children: React.ReactNode;

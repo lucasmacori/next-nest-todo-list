@@ -1,5 +1,5 @@
 services:
-  api:
+  todo-list-api:
     image: "node:18"
     working_dir: "/todo-list-api"
     volumes:
@@ -9,7 +9,7 @@ services:
     command: >
       bash -c "npm i && npm run start:dev"
 
-  webapp:
+  todo-list-webapp:
     image: "node:18"
     working_dir: "/todo-list-webapp"
     volumes:
@@ -19,11 +19,12 @@ services:
     command: >
       bash -c "npm i && npm run dev"
 
-  db:
+  todo-list-db:
     image: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: todo
+      MYSQL_DATABASE: todo
     volumes:
       - "./dist/mysql_data:/var/lib/mysql"
 

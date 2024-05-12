@@ -1,4 +1,4 @@
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 import { SetStateAction, createContext } from "react";
 
 type TaskListContextProps = {
@@ -12,7 +12,10 @@ type TaskListContextProps = {
 
 const TaskListContext = createContext<TaskListContextProps>({
   tasks: [],
+  setTasks: () => {},
+  setSelectedTask: () => {},
   isEditDialogOpen: false,
+  setIsEditDialogOpen: () => {},
 });
 
 export default TaskListContext;

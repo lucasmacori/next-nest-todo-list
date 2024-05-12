@@ -1,5 +1,5 @@
 "use client";
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 import TaskEditorComponent from "./TaskEditor.component";
 import { useContext, useEffect, useState } from "react";
 import TaskListContext from "@/context/TaskListContext/TaskList.context";

@@ -1,9 +1,9 @@
 "use client";
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 import TaskListComponent from "./TaskList.component";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import TaskEditorContainer from "./TaskEditor/TaskEditor.container";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import TaskListContext from "@/context/TaskListContext/TaskList.context";
 import fetchTasks from "@/actions/fetchTasks.action";
 

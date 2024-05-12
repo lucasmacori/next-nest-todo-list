@@ -1,9 +1,9 @@
 "use server";
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 
 const patchTask = async (task: Task) => {
   console.log("Patching", task);
-  await fetch(`http://api:3000/tasks/${task.id}`, {
+  await fetch(`http://todo-list-api:3000/tasks/${task.id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

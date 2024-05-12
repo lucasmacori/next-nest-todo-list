@@ -1,4 +1,4 @@
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 import {
   Checkbox,
   IconButton,

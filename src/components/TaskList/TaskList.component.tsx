@@ -1,6 +1,6 @@
 "use client";
 
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 import { StyledContent, StyledFab, StyledList, StyledTitle } from "./style";
 import TaskListElement from "./Element/TaskListElement.component";
 import { Add, Refresh } from "@mui/icons-material";

@@ -1,4 +1,4 @@
-import { Task } from "@/types/task.type";
+import Task from "@/types/task.type";
 import { Button, FormControl } from "@mui/material";
 import {
   StyledButtonContainer,

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-list-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: todo-list-api
+  template:
+    metadata:
+      labels:
+        app: todo-list-api
+    spec:
+      containers:
+        - name: todo-list-api
+          image: todo-list-api
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-list-api
+spec:
+  selector:
+    app: todo-list-api
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

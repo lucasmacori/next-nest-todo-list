@@ -9,7 +9,7 @@ import { TaskEntity } from './task/task.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'db',
+      host: 'todo-list-db',
       port: 3306,
       username: 'root',
       password: 'todo',
@@ -22,4 +22,4 @@ import { TaskEntity } from './task/task.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
