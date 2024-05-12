@@ -2,7 +2,7 @@
 import { Task } from "@/types/task.type";
 
 const createTask = async (task: Task) => {
-  fetch("http://api:3000/tasks", {
+  await fetch("http://api:3000/tasks", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

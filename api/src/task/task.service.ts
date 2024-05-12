@@ -37,6 +37,22 @@ export class TaskService {
     };
   }
 
+  async patchTask(taskId: number, task: Task): Promise<Task> {
+    const entity = await this.taskRepository.findOneBy({ id: taskId });
+
+    if (!!task.title) entity.title = task.title;
+    if (!!task.description) entity.description = task.description;
+    if (task.done !== undefined) entity.done = task.done;
+
+    const savedEntity = await this.taskRepository.save(entity);
+    return {
+      id: savedEntity.id,
+      title: savedEntity.title,
+      description: savedEntity.description,
+      done: savedEntity.done,
+    };
+  }
+
   async deleteTask(taskId: number): Promise<DeleteResult> {
     return this.taskRepository.delete({ id: taskId });
   }

@@ -1,25 +1,36 @@
 "use client";
 import { Task } from "@/types/task.type";
 import TaskEditorComponent from "./TaskEditor.component";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TaskListContext from "@/context/TaskListContext/TaskList.context";
 import createTask from "@/actions/createTask.action";
+import patchTask from "@/actions/patchTask.action";
 
 type TaskEditorContainerProps = {
   onTaskCreated: () => void;
-  task?: Task;
 };
 
 const TaskEditorContainer: React.FC<TaskEditorContainerProps> = ({
   onTaskCreated,
-  task,
 }) => {
-  const { setIsEditDialogOpen } = useContext(TaskListContext);
+  const { selectedTask, setIsEditDialogOpen } = useContext(TaskListContext);
   const [editedTask, setEditedTask] = useState<Task>({
     title: "",
     description: "",
     done: false,
   });
+
+  useEffect(() => {
+    if (!!selectedTask) {
+      setEditedTask((editedTask: Task) => {
+        editedTask.id = selectedTask.id;
+        editedTask.title = selectedTask.title;
+        editedTask.description = selectedTask.description;
+        editedTask.done = selectedTask.done;
+        return editedTask;
+      });
+    }
+  }, [selectedTask]);
 
   const handleTitleFieldChange = (title: string) => {
     setEditedTask((currentTask: Task) => {
@@ -35,8 +46,12 @@ const TaskEditorContainer: React.FC<TaskEditorContainerProps> = ({
     });
   };
 
-  const handleCreateButtonClick = () => {
-    createTask(editedTask);
+  const handleSaveButtonClick = () => {
+    if (!!editedTask.id) {
+      patchTask(editedTask);
+    } else {
+      createTask(editedTask);
+    }
     setIsEditDialogOpen(false);
     onTaskCreated();
   };
@@ -48,10 +63,10 @@ const TaskEditorContainer: React.FC<TaskEditorContainerProps> = ({
   return (
     <TaskEditorComponent
       onCancelButtonClick={handleCancelButtonClick}
-      onCreateButtonClick={handleCreateButtonClick}
+      onSaveButtonClick={handleSaveButtonClick}
       onDescriptionFieldChange={handleDescriptionFieldChange}
       onTitleFieldChange={handleTitleFieldChange}
-      task={task}
+      task={selectedTask}
     />
   );
 };

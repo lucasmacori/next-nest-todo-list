@@ -14,10 +14,16 @@ type TaskListContainerProps = {
 const TaskListContainer: React.FC<TaskListContainerProps> = ({
   initialTasks,
 }) => {
-  const { tasks, setTasks, isEditDialogOpen, setIsEditDialogOpen } =
-    useContext(TaskListContext);
+  const {
+    tasks,
+    setTasks,
+    isEditDialogOpen,
+    setSelectedTask,
+    setIsEditDialogOpen,
+  } = useContext(TaskListContext);
 
   const handleAddButtonClick = () => {
+    setSelectedTask(undefined);
     setIsEditDialogOpen(true);
   };
 

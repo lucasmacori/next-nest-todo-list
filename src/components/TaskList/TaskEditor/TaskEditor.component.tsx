@@ -9,7 +9,7 @@ import { Check, Clear } from "@mui/icons-material";
 
 type TaskEditorComponentProps = {
   onCancelButtonClick: () => void;
-  onCreateButtonClick: () => void;
+  onSaveButtonClick: () => void;
   onDescriptionFieldChange: (description: string) => void;
   onTitleFieldChange: (title: string) => void;
   task?: Task;
@@ -17,7 +17,7 @@ type TaskEditorComponentProps = {
 
 const TaskEditorComponent: React.FC<TaskEditorComponentProps> = ({
   onCancelButtonClick,
-  onCreateButtonClick,
+  onSaveButtonClick,
   onDescriptionFieldChange,
   onTitleFieldChange,
   task,
@@ -30,6 +30,7 @@ const TaskEditorComponent: React.FC<TaskEditorComponentProps> = ({
             fullWidth={true}
             placeholder="Title"
             variant="outlined"
+            defaultValue={task?.title}
             name="title"
             onChange={(event) => onTitleFieldChange(event.target.value)}
           />
@@ -40,6 +41,7 @@ const TaskEditorComponent: React.FC<TaskEditorComponentProps> = ({
             placeholder="Description"
             variant="outlined"
             name="description"
+            defaultValue={task?.description}
             onChange={(event) => onDescriptionFieldChange(event.target.value)}
             multiline
           />
@@ -59,9 +61,9 @@ const TaskEditorComponent: React.FC<TaskEditorComponentProps> = ({
             variant="contained"
             type="submit"
             endIcon={<Check />}
-            onClick={onCreateButtonClick}
+            onClick={onSaveButtonClick}
           >
-            Create
+            {!!task?.id ? "Save" : "Create"}
           </Button>
         </StyledButtonContainer>
       </StyledFormGroup>

@@ -9,6 +9,7 @@ import deleteTask from "@/actions/deleteTask.action";
 import { useContext } from "react";
 import TaskListContext from "@/context/TaskListContext/TaskList.context";
 import fetchTasks from "@/actions/fetchTasks.action";
+import patchTask from "@/actions/patchTask.action";
 
 type TaskListComponentProps = {
   tasks: Task[];
@@ -19,11 +20,27 @@ const TaskListComponent: React.FC<TaskListComponentProps> = ({
   tasks,
   onAddTaskButtonClick,
 }) => {
-  const { setTasks } = useContext(TaskListContext);
+  const { setSelectedTask, setTasks, setIsEditDialogOpen } =
+    useContext(TaskListContext);
+
+  const refreshTask = async () => {
+    setTasks(await fetchTasks());
+  };
+
+  const handleCompleteTask = async (task: Task, isDone: boolean) => {
+    task.done = isDone;
+    await patchTask(task);
+    await refreshTask();
+  };
 
   const handleDeleteTask = async (task: Task) => {
     await deleteTask(task);
-    setTasks(await fetchTasks());
+    await refreshTask();
+  };
+
+  const handleSelectTask = (task: Task) => {
+    setSelectedTask(task);
+    setIsEditDialogOpen(true);
   };
 
   return (
@@ -37,7 +54,9 @@ const TaskListComponent: React.FC<TaskListComponentProps> = ({
           <TaskListElement
             key={uniqueId()}
             task={task}
+            onCompleteTask={handleCompleteTask}
             onDeleteTask={handleDeleteTask}
+            onSelectTask={handleSelectTask}
           />
         ))}
       </StyledList>

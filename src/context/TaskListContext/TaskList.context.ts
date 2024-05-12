@@ -4,6 +4,8 @@ import { SetStateAction, createContext } from "react";
 type TaskListContextProps = {
   tasks: Task[];
   setTasks: React.Dispatch<SetStateAction<Task[]>>;
+  selectedTask?: Task;
+  setSelectedTask: React.Dispatch<SetStateAction<Task | undefined>>;
   isEditDialogOpen: boolean;
   setIsEditDialogOpen: React.Dispatch<SetStateAction<boolean>>;
 };

@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Task } from './task.type';
 import { DeleteResult } from 'typeorm';
@@ -15,6 +23,14 @@ export class TaskController {
   @Post()
   async createTask(@Body() task: Task): Promise<Task> {
     return this.taskService.createTask(task);
+  }
+
+  @Patch(':taskId')
+  async patchTask(
+    @Param() params: { taskId: number },
+    @Body() task: Task,
+  ): Promise<Task> {
+    return this.taskService.patchTask(params.taskId, task);
   }
 
   @Delete(':taskId')
