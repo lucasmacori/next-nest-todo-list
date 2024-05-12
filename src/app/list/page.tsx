@@ -1,18 +1,12 @@
+import fetchTasks from "@/actions/fetchTasks.action";
 import List from "@/components/TaskList/TaskList.container";
 import TaskListProvider from "@/context/TaskListContext/TaskList.provider";
 
-const fetchTaskList = async () => {
-  const data = await fetch("http://api:3000/tasks", {
-    cache: "no-cache",
-  });
-  return await data.json();
-};
-
 const ListPage: React.FC = async () => {
-  const tasks = await fetchTaskList();
+  const tasks = await fetchTasks();
   return (
     <TaskListProvider>
-      <List tasks={tasks} />
+      <List initialTasks={tasks} />
     </TaskListProvider>
   );
 };

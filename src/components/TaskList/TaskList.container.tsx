@@ -3,15 +3,19 @@ import { Task } from "@/types/task.type";
 import TaskListComponent from "./TaskList.component";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import TaskEditorContainer from "./TaskEditor/TaskEditor.container";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import TaskListContext from "@/context/TaskListContext/TaskList.context";
+import fetchTasks from "@/actions/fetchTasks.action";
 
 type TaskListContainerProps = {
-  tasks: Task[];
+  initialTasks: Task[];
 };
 
-const TaskListContainer: React.FC<TaskListContainerProps> = ({ tasks }) => {
+const TaskListContainer: React.FC<TaskListContainerProps> = ({
+  initialTasks,
+}) => {
   const { isEditDialogOpen, setIsEditDialogOpen } = useContext(TaskListContext);
+  const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
   const handleAddButtonClick = () => {
     setIsEditDialogOpen(true);
@@ -19,6 +23,10 @@ const TaskListContainer: React.FC<TaskListContainerProps> = ({ tasks }) => {
 
   const handleCancelButtonClick = () => {
     setIsEditDialogOpen(false);
+  };
+
+  const handleTaskCreated = async () => {
+    setTasks(await fetchTasks());
   };
 
   return (
@@ -36,7 +44,7 @@ const TaskListContainer: React.FC<TaskListContainerProps> = ({ tasks }) => {
       >
         <DialogTitle>Create a new task</DialogTitle>
         <DialogContent>
-          <TaskEditorContainer />
+          <TaskEditorContainer onTaskCreated={handleTaskCreated} />
         </DialogContent>
       </Dialog>
     </>

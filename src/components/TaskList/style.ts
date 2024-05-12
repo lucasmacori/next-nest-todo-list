@@ -26,9 +26,7 @@ export const StyledFormGroup = styled(FormGroup)`
 `;
 
 export const StyledTextField = styled(TextField)`
-  &:not(:first-of-type) {
-    margin-top: 10px;
-  }  
+  margin-top: 10px;
 }
 `;
 
