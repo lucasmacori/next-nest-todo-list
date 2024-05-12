@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Task } from './task.type';
+import { DeleteResult } from 'typeorm';
 
 @Controller('tasks')
 export class TaskController {
@@ -14,5 +15,10 @@ export class TaskController {
   @Post()
   async createTask(@Body() task: Task): Promise<Task> {
     return this.taskService.createTask(task);
+  }
+
+  @Delete(':taskId')
+  async deleteTask(@Param() params: { taskId: number }): Promise<DeleteResult> {
+    return this.taskService.deleteTask(params.taskId);
   }
 }

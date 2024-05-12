@@ -10,17 +10,25 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 type TaskListElementProps = {
+  onDeleteTask: (task: Task) => void;
   task: Task;
 };
 
-const TaskListElement: React.FC<TaskListElementProps> = ({ task }) => (
+const TaskListElement: React.FC<TaskListElementProps> = ({
+  onDeleteTask,
+  task,
+}) => (
   <ListItem
     secondaryAction={
       <>
         <IconButton edge="end" aria-label="edit">
           <EditIcon />
         </IconButton>
-        <IconButton edge="end" aria-label="delete">
+        <IconButton
+          edge="end"
+          onClick={() => onDeleteTask(task)}
+          aria-label="delete"
+        >
           <DeleteIcon />
         </IconButton>
       </>

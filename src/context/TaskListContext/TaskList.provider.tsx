@@ -7,11 +7,14 @@ type TaskListProviderProps = {
 };
 
 const TaskListProvider: React.FC<TaskListProviderProps> = ({ children }) => {
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState<boolean>(false);
 
   return (
     <TaskListContext.Provider
       value={{
+        tasks,
+        setTasks,
         isEditDialogOpen,
         setIsEditDialogOpen,
       }}

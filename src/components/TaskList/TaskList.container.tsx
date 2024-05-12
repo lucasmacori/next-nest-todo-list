@@ -3,7 +3,7 @@ import { Task } from "@/types/task.type";
 import TaskListComponent from "./TaskList.component";
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import TaskEditorContainer from "./TaskEditor/TaskEditor.container";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TaskListContext from "@/context/TaskListContext/TaskList.context";
 import fetchTasks from "@/actions/fetchTasks.action";
 
@@ -14,8 +14,8 @@ type TaskListContainerProps = {
 const TaskListContainer: React.FC<TaskListContainerProps> = ({
   initialTasks,
 }) => {
-  const { isEditDialogOpen, setIsEditDialogOpen } = useContext(TaskListContext);
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const { tasks, setTasks, isEditDialogOpen, setIsEditDialogOpen } =
+    useContext(TaskListContext);
 
   const handleAddButtonClick = () => {
     setIsEditDialogOpen(true);
@@ -28,6 +28,10 @@ const TaskListContainer: React.FC<TaskListContainerProps> = ({
   const handleTaskCreated = async () => {
     setTasks(await fetchTasks());
   };
+
+  useEffect(() => {
+    setTasks(initialTasks);
+  }, [initialTasks]);
 
   return (
     <>
