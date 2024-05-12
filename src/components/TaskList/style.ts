@@ -3,6 +3,9 @@ import styled from "styled-components";
 
 export const StyledTitle = styled.div`
   border-bottom: 1px solid #424242;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const StyledContent = styled.main`

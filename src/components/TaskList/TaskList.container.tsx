@@ -18,6 +18,7 @@ const TaskListContainer: React.FC<TaskListContainerProps> = ({
     tasks,
     setTasks,
     isEditDialogOpen,
+    selectedTask,
     setSelectedTask,
     setIsEditDialogOpen,
   } = useContext(TaskListContext);
@@ -27,12 +28,20 @@ const TaskListContainer: React.FC<TaskListContainerProps> = ({
     setIsEditDialogOpen(true);
   };
 
+  const refreshTasks = async () => {
+    setTasks(await fetchTasks());
+  };
+
+  const handleRefreshButtonClick = async () => {
+    await refreshTasks();
+  };
+
   const handleCancelButtonClick = () => {
     setIsEditDialogOpen(false);
   };
 
   const handleTaskCreated = async () => {
-    setTasks(await fetchTasks());
+    await refreshTasks();
   };
 
   useEffect(() => {
@@ -44,6 +53,7 @@ const TaskListContainer: React.FC<TaskListContainerProps> = ({
       <TaskListComponent
         tasks={tasks}
         onAddTaskButtonClick={handleAddButtonClick}
+        onRefreshButtonClick={handleRefreshButtonClick}
       />
 
       <Dialog
@@ -52,7 +62,9 @@ const TaskListContainer: React.FC<TaskListContainerProps> = ({
         open={isEditDialogOpen}
         onClose={handleCancelButtonClick}
       >
-        <DialogTitle>Create a new task</DialogTitle>
+        <DialogTitle>
+          {!!selectedTask?.id ? "Update an existing task" : "Create a new task"}
+        </DialogTitle>
         <DialogContent>
           <TaskEditorContainer onTaskCreated={handleTaskCreated} />
         </DialogContent>
